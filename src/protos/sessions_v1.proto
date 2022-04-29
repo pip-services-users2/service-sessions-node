@@ -1,0 +1,142 @@
+// Copyright 2015 gRPC authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "pip-services.users.sessions.version1";
+option java_outer_classname = "SessionsProtoV1";
+option objc_class_prefix = "SESSIONS_CMD_V1";
+
+package sessions_v1;
+
+message ErrorDescription {
+  string type = 1;
+  string category = 2;
+  string code = 3;
+  string correlation_id = 4;
+  string status = 5;
+  string message = 6;
+  string cause = 7;
+  string stack_trace = 8;
+  map<string, string> details = 9;
+}
+
+message PagingParams {
+    int64 skip = 1;
+    int32 take = 2;
+    bool total = 3;
+}
+
+message Session {
+    // Identification
+    string id = 1;
+    string user_id = 2;
+    string user_name = 3;
+
+    // Session info
+    bool active = 4;
+    string open_time = 5;
+    string close_time = 6;
+    string request_time = 7;
+    string address = 8;
+    string client = 9;
+
+    // Cached content
+    string user = 11;
+    string data = 12;
+}
+
+message SessionPage {
+    int64 total = 1;
+    repeated Session data = 2;
+}
+
+// The sessions service definition.
+service Sessions {
+  rpc get_sessions (SessionPageRequest) returns (SessionPageReply) {}
+  rpc get_session_by_id (SessionIdRequest) returns (SessionObjectReply) {}
+  rpc open_session (SessionOpenRequest) returns (SessionObjectReply) {}
+  rpc store_session_data (SessionStoreDataRequest) returns (SessionObjectReply) {}
+  rpc update_session_user (SessionUpdateUserRequest) returns (SessionObjectReply) {}
+  rpc close_session (SessionIdRequest) returns (SessionObjectReply) {}
+  rpc close_expired_sessions (SessionEmptyRequest) returns (SessionEmptyReply) {}
+  rpc delete_session_by_id (SessionIdRequest) returns (SessionObjectReply) {}
+}
+
+// The request message containing the session page request.
+message SessionPageRequest {
+  string correlation_id = 1;
+  map<string, string> filter = 2;
+  PagingParams paging = 3;
+}
+
+// The response message containing the session page response
+message SessionPageReply {
+  ErrorDescription error = 1;
+  SessionPage page = 2;
+}
+
+// The request message containing the session id request.
+message SessionIdRequest {
+  string correlation_id = 1;
+  string session_id = 2;
+}
+
+// The request message containing the session open request.
+message SessionOpenRequest {
+  string correlation_id = 1;
+  string user_id = 2;
+  string user_name = 3;
+  string address = 4;
+  string client = 5;
+  string user = 6;
+  string data = 7;
+}
+
+// The request message containing the store session data request.
+message SessionStoreDataRequest {
+  string correlation_id = 1;
+  string session_id = 2;
+  string data = 3;
+}
+
+// The request message containing the update session user request.
+message SessionUpdateUserRequest {
+  string correlation_id = 1;
+  string session_id = 2;
+  string user = 3;
+}
+
+// The request message containing the empty session request.
+message SessionEmptyRequest {
+  string correlation_id = 1;
+}
+
+// The request message containing the session object request.
+message SessionObjectRequest {
+  string correlation_id = 1;
+  Session session = 2;
+}
+
+// The response message containing the session object response
+message SessionObjectReply {
+  ErrorDescription error = 1;
+  Session session = 2;
+}
+
+// The response message containing the empty session response
+message SessionEmptyReply {
+  ErrorDescription error = 1;
+}

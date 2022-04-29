@@ -1,0 +1,85 @@
+---
+# Container descriptor
+- descriptor: "pip-services:context-info:default:default:1.0"
+  name: "service-sessions"
+  description: "Sessions microservice for pip-services"
+
+# Console logger
+- descriptor: "pip-services:logger:console:default:1.0"
+  level: "trace"
+
+# Performance counters that posts values to log
+- descriptor: "pip-services:counters:log:default:1.0"
+  level: "trace"
+
+{{#if MEMORY_ENABLED}}
+# In-memory persistence. Use only for testing!
+- descriptor: "service-sessions:persistence:memory:default:1.0"
+{{/if}}
+
+{{#if FILE_ENABLED}}
+# File persistence. Use it for testing of for simple standalone deployments
+- descriptor: "service-sessions:persistence:file:default:1.0"
+  path: {{FILE_PATH}}{{#unless FILE_PATH}}"../data/sessions.json"{{/unless}}
+{{/if}}
+
+{{#if MONGO_ENABLED}}
+# MongoDB Persistence
+- descriptor: "service-sessions:persistence:mongodb:default:1.0"
+  collection: {{MONGO_COLLECTION}}{{#unless MONGO_COLLECTION}}sessions{{/unless}}
+  connection:
+    uri: {{{MONGO_SERVICE_URI}}}
+    host: {{{MONGO_SERVICE_HOST}}}{{#unless MONGO_SERVICE_HOST}}localhost{{/unless}}
+    port: {{MONGO_SERVICE_PORT}}{{#unless MONGO_SERVICE_PORT}}27017{{/unless}}
+    database: {{MONGO_DB}}{{#unless MONGO_DB}}app{{/unless}}
+  credential:
+    username: {{MONGO_USER}}
+    password: {{MONGO_PASS}}
+{{/if}}
+
+{{#unless MEMORY_ENABLED}}{{#unless FILE_ENABLED}}{{#unless MONGO_ENABLED}}
+# Default in-memory persistence
+- descriptor: "service-sessions:persistence:memory:default:1.0"
+{{/unless}}{{/unless}}{{/unless}}
+
+# Default controller
+- descriptor: "service-sessions:controller:default:default:1.0"
+
+{{#if HTTP_ENABLED}}
+# Common HTTP endpoint
+- descriptor: "pip-services:endpoint:http:default:1.0"
+  connection:
+    protocol: "http"
+    host: "0.0.0.0"
+    port: {{HTTP_PORT}}{{#unless HTTP_PORT}}8080{{/unless}}
+
+# HTTP endpoint version 1.0
+- descriptor: "service-sessions:service:http:default:1.0"
+  swagger:
+    enable: true
+    auto: true
+
+# Heartbeat service
+- descriptor: "pip-services:heartbeat-service:http:default:1.0"
+
+# Status service
+- descriptor: "pip-services:status-service:http:default:1.0"
+
+# Swagger service
+- descriptor: "pip-services:swagger-service:http:default:1.0"
+{{/if}}
+
+{{#if GRPC_ENABLED}}
+# Common GRPC endpoint
+- descriptor: "pip-services:endpoint:grpc:default:1.0"
+  connection:
+    protocol: "http"
+    host: "0.0.0.0"
+    port: {{GRPC_PORT}}{{#unless GRPC_PORT}}8090{{/unless}}
+
+# GRPC endpoint version 1.0
+- descriptor: "service-sessions:service:grpc:default:1.0"
+
+# Commandable GRPC endpoint version 1.0
+- descriptor: "service-sessions:service:commandable-grpc:default:1.0"
+{{/if}}

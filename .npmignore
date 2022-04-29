@@ -1,0 +1,13 @@
+/.vscode
+!/src/protos
+!/src/protos/*
+/test
+/obj/test
+/data
+/docs
+/docker
+/node_modules
+/.dockerignore
+/*.sh
+/*.ps1
+/.github
