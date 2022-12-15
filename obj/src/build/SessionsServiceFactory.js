@@ -7,7 +7,7 @@ const SessionsMongoDbPersistence_1 = require("../persistence/SessionsMongoDbPers
 const SessionsFilePersistence_1 = require("../persistence/SessionsFilePersistence");
 const SessionsMemoryPersistence_1 = require("../persistence/SessionsMemoryPersistence");
 const SessionsController_1 = require("../logic/SessionsController");
-const SessionsHttpServiceV1_1 = require("../services/version1/SessionsHttpServiceV1");
+const SessionsCommandableHttpServiceV1_1 = require("../services/version1/SessionsCommandableHttpServiceV1");
 const SessionsCommandableGrpcServiceV1_1 = require("../services/version1/SessionsCommandableGrpcServiceV1");
 const SessionsGrpcServiceV1_1 = require("../services/version1/SessionsGrpcServiceV1");
 class SessionsServiceFactory extends pip_services3_components_nodex_1.Factory {
@@ -17,7 +17,7 @@ class SessionsServiceFactory extends pip_services3_components_nodex_1.Factory {
         this.registerAsType(SessionsServiceFactory.FilePersistenceDescriptor, SessionsFilePersistence_1.SessionsFilePersistence);
         this.registerAsType(SessionsServiceFactory.MongoDbPersistenceDescriptor, SessionsMongoDbPersistence_1.SessionsMongoDbPersistence);
         this.registerAsType(SessionsServiceFactory.ControllerDescriptor, SessionsController_1.SessionsController);
-        this.registerAsType(SessionsServiceFactory.HttpServiceDescriptor, SessionsHttpServiceV1_1.SessionsHttpServiceV1);
+        this.registerAsType(SessionsServiceFactory.CommandableHttpServiceDescriptor, SessionsCommandableHttpServiceV1_1.SessionsCommandableHttpServiceV1);
         this.registerAsType(SessionsServiceFactory.CommandableGrpcServiceDescriptor, SessionsCommandableGrpcServiceV1_1.SessionsCommandableGrpcServiceV1);
         this.registerAsType(SessionsServiceFactory.GrpcServiceDescriptor, SessionsGrpcServiceV1_1.SessionsGrpcServiceV1);
     }
@@ -28,7 +28,7 @@ SessionsServiceFactory.MemoryPersistenceDescriptor = new pip_services3_commons_n
 SessionsServiceFactory.FilePersistenceDescriptor = new pip_services3_commons_nodex_1.Descriptor("service-sessions", "persistence", "file", "*", "1.0");
 SessionsServiceFactory.MongoDbPersistenceDescriptor = new pip_services3_commons_nodex_1.Descriptor("service-sessions", "persistence", "mongodb", "*", "1.0");
 SessionsServiceFactory.ControllerDescriptor = new pip_services3_commons_nodex_1.Descriptor("service-sessions", "controller", "default", "*", "1.0");
-SessionsServiceFactory.HttpServiceDescriptor = new pip_services3_commons_nodex_1.Descriptor("service-sessions", "service", "http", "*", "1.0");
+SessionsServiceFactory.CommandableHttpServiceDescriptor = new pip_services3_commons_nodex_1.Descriptor("service-sessions", "service", "commandable-http", "*", "1.0");
 SessionsServiceFactory.CommandableGrpcServiceDescriptor = new pip_services3_commons_nodex_1.Descriptor("service-sessions", "service", "commandable-grpc", "*", "1.0");
 SessionsServiceFactory.GrpcServiceDescriptor = new pip_services3_commons_nodex_1.Descriptor("service-sessions", "service", "grpc", "*", "1.0");
 //# sourceMappingURL=SessionsServiceFactory.js.map

@@ -54,7 +54,7 @@
     port: {{HTTP_PORT}}{{#unless HTTP_PORT}}8080{{/unless}}
 
 # HTTP endpoint version 1.0
-- descriptor: "service-sessions:service:http:default:1.0"
+- descriptor: "service-sessions:service:commandable-http:default:1.0"
   swagger:
     enable: true
     auto: true

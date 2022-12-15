@@ -8,7 +8,7 @@ import { References } from 'pip-services3-commons-nodex';
 import { SessionV1 } from '../../../src/data/version1/SessionV1';
 import { SessionsMemoryPersistence } from '../../../src/persistence/SessionsMemoryPersistence';
 import { SessionsController } from '../../../src/logic/SessionsController';
-import { SessionsHttpServiceV1 } from '../../../src/services/version1/SessionsHttpServiceV1';
+import { SessionsCommandableHttpServiceV1 } from '../../../src/services/version1/SessionsCommandableHttpServiceV1';
 
 let httpConfig = ConfigParams.fromTuples(
     "connection.protocol", "http",
@@ -16,16 +16,16 @@ let httpConfig = ConfigParams.fromTuples(
     "connection.port", 3000
 );
 
-suite('SessionsHttpServiceV1', ()=> {
+suite('SessionsCommandableHttpServiceV1', ()=> {
     let persistence: SessionsMemoryPersistence;
-    let service: SessionsHttpServiceV1;
+    let service: SessionsCommandableHttpServiceV1;
     let rest: any;
 
     suiteSetup(async () => {
         persistence = new SessionsMemoryPersistence();
         let controller = new SessionsController();
 
-        service = new SessionsHttpServiceV1();
+        service = new SessionsCommandableHttpServiceV1();
         service.configure(httpConfig);
 
         let references: References = References.fromTuples(
