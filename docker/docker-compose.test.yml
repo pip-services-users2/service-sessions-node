@@ -6,8 +6,7 @@ services:
     build:
       context: ..
       dockerfile: docker/Dockerfile.test
-    image: ${IMAGE:-pipdevs/test}
-    command: ${TEST_CMD:-npm test}
+    image: ${IMAGE:-pipservices/test}
     links:
       - mongo
     environment:

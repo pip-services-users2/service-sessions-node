@@ -12,7 +12,6 @@ RUN npm -g config set user root
 RUN npm install typescript@3.6.2 \
     && npm install grpc-tools@1.7.0 \
     && npm install grpc_tools_node_protoc_ts@5.0.1
-
     
 # copy the entire project
 COPY . .

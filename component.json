@@ -2,7 +2,7 @@
     "name": "service-sessions-node",
     "type": "microservice",
     "language": "node",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "build": 0,
     "registry": "pipservices",
     "artifacts": [

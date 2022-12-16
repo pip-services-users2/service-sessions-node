@@ -3,11 +3,13 @@
 Set-StrictMode -Version latest
 $ErrorActionPreference = "Stop"
 
-$component = Get-Content -Path "component.json" | ConvertFrom-Json
-$image="$($component.registry)/$($component.name):$($component.version)-$($component.build)-rc"
+# Get component data and set necessary variables
+$component = Get-Content -Path "$PSScriptRoot/component.json" | ConvertFrom-Json
+$rcImage = "$($component.registry)/$($component.name):$($component.version)-$($component.build)"
 
 # Set environment variables
-$env:IMAGE = $image
+$env:IMAGE = $rcImage
 
-docker-compose -f ./docker/docker-compose.yml up
-docker-compose -f ./docker/docker-compose.yml down
+# Workaround to remove dangling images
+docker-compose -f "$PSScriptRoot/docker/docker-compose.yml" down
+docker-compose -f "$PSScriptRoot/docker/docker-compose.yml" up
