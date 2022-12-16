@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
 
-  test:
+  app:
     build:
       context: ..
       dockerfile: docker/Dockerfile

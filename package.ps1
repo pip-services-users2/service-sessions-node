@@ -56,7 +56,7 @@ catch {
     # Output container logs if web request failed
     $containersStatuses = docker-compose -f "$PSScriptRoot/docker/docker-compose.yml" ps
     # Parse docker-compose list of containers
-    foreach ($containerStatus in $containersStatuses | Select -Skip 2) {
+    foreach ($containerStatus in $containersStatuses | Select-Object -Skip 1) {
         $containerName = $containerStatus.split(" ")[0]
         Write-Host "`nLogs of '$containerName' container:"
         docker logs $containerName
