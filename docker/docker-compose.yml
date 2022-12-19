@@ -7,18 +7,9 @@ services:
       context: ..
       dockerfile: docker/Dockerfile
     image: ${IMAGE:-pipservices/app}
-    links:
-      - mongo
     environment:
-      - MONGO_SERVICE_URI=
-      - MONGO_SERVICE_HOST=mongo
-      - MONGO_SERVICE_PORT=27017
-      - MONGO_DB=app
       - HTTP_ENABLED=true
       - GRPC_ENABLED=true
     ports:
       - "8080:8080"
       - "8090:8090"
-
-  mongo:
-    image: mongo:latest
