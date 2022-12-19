@@ -104,7 +104,7 @@ jobs:
       with:
         path: |
           script-delivery-ps
-          component*.json
+          component.json
         key: delivery-${{ github.run_id }}-${{ github.run_attempt }}
 
     - name: Run script to get metrics and update s3 file
