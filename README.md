@@ -89,7 +89,7 @@ Example of microservice configuration
 
 - descriptor: "service-sessions:controller:default:default:1.0"
 
-- descriptor: "service-sessions:service:http:default:1.0"
+- descriptor: "service-sessions:service:commandable-http:default:1.0"
   connection:
     protocol: "http"
     host: "0.0.0.0"

@@ -97,7 +97,7 @@ A detailed description of HTTP protocol version 1 can be found [here](HttpProtoc
 
 Example:
 ```yaml
-- descriptor: "service-sessions:service:http:default:1.0"
+- descriptor: "service-sessions:service:commandable-http:default:1.0"
   connection:
     protocol: "http"
     host: "0.0.0.0"
